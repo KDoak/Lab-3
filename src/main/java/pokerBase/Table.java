@@ -20,7 +20,7 @@ public UUID getTableID() {
 public void setTableID(UUID tableID) {
 	TableID = tableID;
 }
-
+ 
 public ArrayList<Player> getTablePlayers() {
 	return tablePlayers;
 }
