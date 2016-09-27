@@ -16,7 +16,7 @@ public Table(UUID tableID, ArrayList<Player> tablePlayers) {
 public UUID getTableID() {
 	return TableID;
 }
-
+  
 public void setTableID(UUID tableID) {
 	TableID = tableID;
 }
