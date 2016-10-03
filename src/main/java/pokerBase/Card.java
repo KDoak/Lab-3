@@ -45,10 +45,10 @@ public class Card  implements Comparable {
 	}
 
 	public boolean isbWild() {
-		return bWild;
+		return false;
 	}
 	public void setbWild(boolean bWild) {
-		this.bWild = bWild;
+		this.bWild = true;
 	}
 
 	public static Comparator<Card> CardRank = new Comparator<Card>() {
