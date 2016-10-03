@@ -160,7 +160,35 @@ public class Hand {
 
 		return isRoyalFlush;
 	}
+/**
+ * isHandFiveOfAKind - This method will determine if the hand is a five of a 
+ * kind
+ * 
+ * @param h
+ * @param hs
+ * @return
+ */
+	public static boolean isHandFiveOfAKind(Hand h, HandScore hs) {
+		int loopcount = 0;
+		boolean bFiveHand = false;
 
+		for (int i = 0; i < eRank.values().length; i++) {
+			for (int k = 0; k < h.getCardsInHand().size(); k++) {
+				if (h.getCardsInHand().get(k).geteRank() == eRank.values()[i]) {
+					loopcount++;}
+			}
+			if (loopcount == 5) {
+				bFiveHand = true;
+				break;}
+		}
+		if (bFiveHand == true) {
+			hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+		}
+		return bFiveHand;
+	}
+	
 	/**
 	 * isHandFourOfAKind - this method will determine if the hand is a four of a
 	 * kind
