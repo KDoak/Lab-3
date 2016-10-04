@@ -32,7 +32,7 @@ public class Deck {
 			deckCards.add(new Card (eSuit.JOKER, eRank.JOKER,99));}
 		Collections.shuffle(deckCards);
 		
-	}
+	} 
 	
 	
 	public Deck(int NbrOfJokers, ArrayList<Card> Wilds) {
