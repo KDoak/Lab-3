@@ -34,7 +34,7 @@ public class Deck {
 		
 	} 
 	
-	
+	 
 	public Deck(int NbrOfJokers, ArrayList<Card> Wilds) {
 
 		this(NbrOfJokers);
