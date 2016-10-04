@@ -29,7 +29,7 @@ public void setTablePlayers(ArrayList<Player> tablePlayers) {
 	this.tablePlayers = tablePlayers;
 }
 
-public AddPlayerToTable(Player){
+public void AddPlayerToTable(Player){
 	return tablePlayers.add(Player);
 }
 

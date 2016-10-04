@@ -1,6 +1,6 @@
 package pokerBase;
 
-
+   
 import java.util.Comparator;
 
 import pokerEnums.eRank;
@@ -8,7 +8,7 @@ import pokerEnums.eSuit;
 
 public class Card  implements Comparable {
 
-	private eSuit eSuit;
+	private eSuit eSuit; //test
 	private eRank eRank;
 	private int iCardNbr;
 	private boolean bWild;

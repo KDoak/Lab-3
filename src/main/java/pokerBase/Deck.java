@@ -7,9 +7,9 @@ import pokerEnums.eRank;
 import pokerEnums.eSuit;
 
 public class Deck {
-
+   //
 	private ArrayList<Card> deckCards = new ArrayList<Card>();
-
+  
 	public Deck() {
 		int iCardNbr = 1;
 		for (eSuit eSuit : eSuit.values()) {
