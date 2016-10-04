@@ -33,7 +33,7 @@ public class Deck {
 		Collections.shuffle(deckCards);
 		
 	} 
-	
+	 
 	 
 	public Deck(int NbrOfJokers, ArrayList<Card> Wilds) {
 
