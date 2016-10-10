@@ -20,7 +20,7 @@ public UUID getTableID() {
 public void setTableID(UUID tableID) {
 	TableID = tableID;
 }
-  
+   
 public ArrayList<Player> getTablePlayers() {
 	return tablePlayers;
 }
@@ -28,9 +28,10 @@ public ArrayList<Player> getTablePlayers() {
 public void setTablePlayers(ArrayList<Player> tablePlayers) {
 	this.tablePlayers = tablePlayers;
 }
-
-public void AddPlayerToTable(Player){
-	return tablePlayers.add(Player);
+    
+public ArrayList<Player> AddPlayerToTable(Player x){
+	tablePlayers.add(x);
+	return getTablePlayers();
 }
 
 }

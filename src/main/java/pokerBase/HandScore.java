@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class HandScore {
 
-
+ 
 	private int HandStrength;
 	private int HiHand;
 	private int LoHand = 0;
