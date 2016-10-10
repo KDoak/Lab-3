@@ -16,11 +16,8 @@ public class Hand_Test {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
-
 	}
 
-	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
@@ -52,14 +49,15 @@ public class Hand_Test {
 		assertTrue(h.getHs().getHiHand() == eRank.ACE.getiRankNbr());
 		
 	}
+	
 	@Test
-	public void TestStraightFlush() {
+	public void TestFiveOfAKind() {
 		Hand h = new Hand();
 		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.TEN,1));
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.JACK,1));
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.QUEEN,1));
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.KING,1));
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.NINE,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.SPADES, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.DIAMONDS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.TEN,1));
 		
 		try {
 			h.EvaulateHand();
@@ -67,12 +65,28 @@ public class Hand_Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		System.out.println(h.getHs().getHandStrength());
+		assertTrue(h.getHs().getHandStrength() == eHandStrength.FiveOfAKind.getHandStrength());
+		assertTrue(h.getHs().getHiHand() == eRank.TEN.getiRankNbr());
 	}
-	
-	
-	
+	@Test
+	public void TestStraightFlush() {
+		Hand h = new Hand();
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.TWO,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.THREE,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.FIVE,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.ACE,1));
+		
+		try {
+			h = Hand.EvaluateHand(h);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		assertTrue(h.getHs().getHandStrength() == eHandStrength.StraightFlush.getHandStrength());
+		assertTrue(h.getHs().getHiHand() == eRank.ACE.getiRankNbr());
+		
+	}		
 	@Test
 	public void TestFourOfAKind() {
 		Hand h = new Hand();
@@ -93,5 +107,43 @@ public class Hand_Test {
 		
 	}
 	
+	@Test
+	public void TestFullHouse() {
+		Hand h = new Hand();
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.ACE,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.ACE,1));
+		
+		try {
+			h = Hand.EvaluateHand(h);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		assertTrue(h.getHs().getHandStrength() == eHandStrength.FullHouse.getHandStrength());
+		assertTrue(h.getHs().getHiHand() == eRank.ACE.getiRankNbr());
+		
+	}
+	@Test
+	public void TestFullHouse() {
+		Hand h = new Hand();
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.ACE,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.ACE,1));
+		
+		try {
+			h = Hand.EvaluateHand(h);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		assertTrue(h.getHs().getHandStrength() == eHandStrength.FullHouse.getHandStrength());
+		assertTrue(h.getHs().getHiHand() == eRank.ACE.getiRankNbr());
+		
+	}
 
 }
