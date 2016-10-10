@@ -9,7 +9,7 @@ private ArrayList<Player> tablePlayers = new ArrayList<Player>();
 
 public Table(UUID tableID, ArrayList<Player> tablePlayers) {
 	super();
-	TableID = tableID;
+	TableID = UUID.randomUUID();
 	this.tablePlayers = tablePlayers;
 }
 

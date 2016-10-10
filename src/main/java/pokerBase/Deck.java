@@ -3,6 +3,7 @@ package pokerBase;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import pokerExceptions.DeckException;
 import pokerEnums.eRank;
 import pokerEnums.eSuit;
 
@@ -38,22 +39,32 @@ public class Deck {
 	public Deck(int NbrOfJokers, ArrayList<Card> Wilds) {
 
 		this(NbrOfJokers);
-		for (Card c: Wilds)
+		for (Card c: deckCards)
 		{
-			for(Card d: deckCards)
+			for(Card Wild: Wilds)
 			{
-				if (c.geteSuit()==d.geteSuit() && c.geteRank()==d.geteRank());{
-					setbWild(c);
+				if (c.geteRank()==Wild.geteRank() && c.geteRank()== Wild.geteRank());{
+					c.setbWild(true);
 				}
-				else return false
+				
 				
 			}
 		}
 	}
-	public Card Draw(){
-		
-		
-		//TODO Lab 3 - Implement exception handling for overdraw
+	public Card Draw() throws DeckException{
+		if (deckCards.size() == 0){
+			throw new DeckException(this);}
 		return deckCards.remove(0);
+		
+		
 	}
+	ArrayList<Card> getDeckCards(){
+		return deckCards;
+	}
+	
+	
+	public double getDeckSize() {
+		return deckCards.size();
+	}
+
 }

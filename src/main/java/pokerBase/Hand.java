@@ -4,7 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
+import pokerExceptions.HandException;
 import pokerEnums.eCardNo;
 import pokerEnums.eHandStrength;
 import pokerEnums.eRank;
@@ -53,7 +55,7 @@ public class Hand {
 	 */
 	static Hand EvaluateHand(Hand h) throws Exception {
 
-		// Sort the colleciton (by hand rank)
+		// Sort the collection (by hand rank)
 		Collections.sort(h.getCardsInHand());
 
 		// TODO - Lab 3 Here's the code to throw the HandException
@@ -108,9 +110,45 @@ public class Hand {
 				e.printStackTrace();
 			}
 		}
+	    private static ArrayList<Hand> ExplodeHands(Hand h) {
 
-		// TODO - Lab 3. ExplodedHands has a bunch of hands.
-		// Either 1, 52, 2
+	        ArrayList<Hand> ReturnHands = new ArrayList<Hand>();
+	        ReturnHands.add(h);
+	        for (int iCard = 0; iCard < 5; iCard++) {
+	            ReturnHands = SubstituteCard(iCard, ReturnHands);
+	        }
+	        return ReturnHands;
+	    }
+
+	    private static ArrayList<Hand> SubstituteCard(int iCardSub, ArrayList<Hand> hands) {
+	        ArrayList<Hand> CreatedHands = new ArrayList<Hand>();
+	        Deck CreatedDeck = new Deck();
+
+	        for (Hand h : hands) {
+	            if ((h.getCardsInHand().get(iCardSub).isbWild() == true)
+	                    || (h.getCardsInHand().get(iCardSub).geteSuit() == eSuit.JOKER)) {
+	                for (Card JokerDeckCard : CreatedDeck.getDeckCards()) {
+	                    Hand CreatedHand = new Hand();
+	                    for (int iCard = 0; iCard < 5; iCard++) {
+	                        if (iCardSub == iCard) {
+	                            CreatedHand.AddToCardsInHand(JokerDeckCard);
+	                        } else {
+	                            CreatedHand.AddToCardsInHand(h.getCardsInHand().get(iCard));
+	                        }
+	                    }
+	                    CreatedHands.add(CreatedHand);
+	                }
+	            } else {
+	                Hand CreatedHand = new Hand();
+	                for (int iCard = 0; iCard < 5; iCard++) {
+	                    CreatedHand.AddToCardsInHand(h.getCardsInHand().get(iCard));
+	                }
+	                CreatedHands.add(CreatedHand);
+	            }
+	        }
+
+	        return CreatedHands;
+	    }
 		return h;
 	}
 
@@ -476,4 +514,67 @@ public class Hand {
 		hs.setKickers(kickers);
 		return true;
 	}
+	public static Comparator<Hand> HandRanking = new Comparator<Hand>(){
+		public int compare(Hand hand1, Hand hand2){
+			//default for winner starts at 0, uses Comparator to gauge who wins hand.
+			int winner = 0;
+			//Testing Hand strength. Highest hand wins.
+			winner = hand2.getHs().getHandStrength() - hand1.getHs().getHandStrength();
+			if (winner != 0){
+				return winner;
+			}//Testing Hi Hands because first test tied.
+			winner = hand2.getHs().getHiHand() - hand1.getHs().getHiHand();
+			if (winner != 0){
+				return winner;
+			}//Testing Lo Hands because second test tied.
+			winner = hand2.getHs().getLoHand() - hand1.getHs().getHiHand();
+			if (winner != 0){
+				return winner;
+			}//Testing Individual Kickers because even the third test tied- which by the way, is ridiculous but whatever.
+			if (hand2.getHs().getKickers().size()>0){
+				if(hand1.getHs().getKickers().size()>0){
+					winner = hand2.getHs().getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()
+							- hand1.getHs().getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr();}
+				if(winner != 0){
+					return winner;
+				}
+			}//Testing second kicker card potential.
+			if (hand2.getHs().getKickers().size()>1) {
+				if (hand1.getHs().getKickers().size()>1) {
+					winner = hand2.getHs().getKickers().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()
+							- hand1.getHs().getKickers().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr();
+				}
+				if (winner != 0){
+					return winner;
+				}
+			}//Testing third kicker card potential.
+			if (hand2.getHs().getKickers().size()>2) {
+				if (hand1.getHs().getKickers().size()>2) {
+					winner = hand2.getHs().getKickers().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr()
+							- hand1.getHs().getKickers().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr();
+				}
+				if (winner != 0) {
+					return winner;
+				}
+			}//Testing fourth kicker card potential.
+			if (hand2.getHs().getKickers().size()>3) {
+				if (hand1.getHs().getKickers().size()>3) {
+					winner = hand2.getHs().getKickers().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr()
+							- hand1.getHs().getKickers().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr();
+				}
+				if (winner != 0) {
+					return winner;
+				}
+			}
+			return 0;
+		}
+	};//Possible Hand Exception throw + Testing for best hand
+	public static Hand PickBestHand(ArrayList<Hand> hands) throws HandException {
+		Collections.sort(hands, HandRanking);
+		if(1 < hands.size() && HandRanking.compare(hands.get(0), hands.get(1)) == 0){
+			throw new HandException(hands.get(0));
+		}
+		else return hands.get(0);
+	}
 }
+	

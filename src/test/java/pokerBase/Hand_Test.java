@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import pokerExceptions.DeckException;
+import pokerExceptions.HandException;
+import pokerEnums.eCardNo;
 import pokerEnums.eHandStrength;
 import pokerEnums.eRank;
 import pokerEnums.eSuit;
